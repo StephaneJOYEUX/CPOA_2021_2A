@@ -23,4 +23,35 @@ public class Periodicite {
 	public String getLibelle() {
 		return libelle;
 	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setLibelle(String libelle) {
+		this.libelle = libelle;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		Periodicite other = (Periodicite) obj;
+		if (id != other.getId()) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Id = " + id + " / Libellé = " + libelle;
+	}
 }
