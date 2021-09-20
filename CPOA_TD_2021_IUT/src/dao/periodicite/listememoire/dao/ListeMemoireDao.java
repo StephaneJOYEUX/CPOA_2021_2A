@@ -50,8 +50,7 @@ public class ListeMemoireDao implements IDaoPeriodicite {
 
 	@Override
 	public List<Periodicite> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return data;
 	}
 
 	@Override

@@ -1,8 +1,13 @@
 package dao.periodicite.mysql;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import dao.connection.Connexion;
 import dao.periodicite.IDaoPeriodicite;
 import metier.Periodicite;
 
@@ -11,6 +16,7 @@ public class MySqlDaoPeriodicite implements IDaoPeriodicite {
 	// Ajout de l'objet connection ...
 
 	private static MySqlDaoPeriodicite instance;
+	private Connexion connexion;
 
 	/* @return un objet de type MySqlDaoPeriodicite en singleton */
 	public static MySqlDaoPeriodicite getInstance() {
@@ -21,10 +27,24 @@ public class MySqlDaoPeriodicite implements IDaoPeriodicite {
 		return instance;
 	}
 
+	private MySqlDaoPeriodicite() {
+		connexion = new Connexion();
+	}
+
 	@Override
 	public Periodicite getById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		Periodicite p = null;
+		try {
+			Connection laConnexion = connexion.creeConnexion();
+			Statement requete = laConnexion.createStatement();
+			ResultSet res = requete.executeQuery("select * from periodicite");
+			while (res.next()) {
+				p = new Periodicite(res.getInt(1), res.getString("libelle"));
+			}
+		} catch (SQLException sqle) {
+			System.out.println("Pb select" + sqle.getMessage());
+		}
+		return p;
 	}
 
 	@Override
